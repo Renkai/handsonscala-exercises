@@ -20,15 +20,11 @@ object Deserialize {
       override def parse(s: String): Int = s.toInt
     }
 
-    implicit def ParseSeq[T](implicit p: StrParser[T]): StrParser[Seq[T]] = new StrParser[Seq[T]] {
-      override def parse(s: String): Seq[T] = split(s).map(p.parse)
-    }
+    implicit def ParseSeq[T](implicit p: StrParser[T]): StrParser[Seq[T]] = (s: String) => split(s).map(p.parse)
 
-    implicit def ParseTuple[T1, T2](implicit p1: StrParser[T1], p2: StrParser[T2]): StrParser[(T1, T2)] = new StrParser[(T1, T2)] {
-      override def parse(s: String): (T1, T2) = {
-        val value = split(s)
-        (p1.parse(value(0)), p2.parse(value(1)))
-      }
+    implicit def ParseTuple[T1, T2](implicit p1: StrParser[T1], p2: StrParser[T2]): StrParser[(T1, T2)] = (s: String) => {
+      val value = split(s)
+      (p1.parse(value(0)), p2.parse(value(1)))
     }
 
     def split(s: String): Seq[String] = {
