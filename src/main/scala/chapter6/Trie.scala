@@ -66,15 +66,15 @@ object ImmutableTrie {
   def main(args: Array[String]): Unit = {
     val t = new ImmutableTrie(Seq("mango", "mandarin", "map", "man"))
 
-    assert(t.contains("mango") == true)
+    assert(t.contains("mango"))
 
-    assert(t.contains("mang") == false)
+    assert(!t.contains("mang"))
 
-    assert(t.contains("man") == true)
+    assert(t.contains("man"))
 
-    assert(t.contains("mandarin") == true)
+    assert(t.contains("mandarin"))
 
-    assert(t.contains("mandarine") == false)
+    assert(!t.contains("mandarine"))
 
     assert(t.prefixesMatchingString("mangosteen") == Set("man", "mango"))
 
